@@ -128,7 +128,7 @@ function aws_option_form() {
 	<form id="option-form" method="post" name="option-form">
 		<table id="aws-option-table">
 			<tr>
-				<td><strong>No ajax container IDs:<strong></td>
+				<td><strong>No ajax container IDs/Classes:<strong></td>
 				<td>
 					<textarea id="no_ajax_ids" name="no-ajax-ids"><?php echo get_option('no-ajax-ids'); ?></textarea>
 				</td>
@@ -136,19 +136,19 @@ function aws_option_form() {
 			<tr>
 				<td></td>
 				<td>
-					Provide the ids of the parent tag whose child anchor(a) 
+					Provide the ids or classes of the parent tag whose child anchor(a) 
 					tags you dont want to handled by AWS plugin.
 					<br />
-					<b>NOTE:</b> ids should be separated by comma(,) without any spaces. eg: id1,id2,id3
+					<b>NOTE:</b> ids/classes should be separated by comma(,) without any spaces. eg: <span style="font-family:monospace;">.class1,#id2,.class3</span>
 				</td>
 			</tr>
 			<tr>
-				<td><strong>Ajax container ID:*</strong></td>
+				<td><strong>Ajax container ID/Class:*</strong></td>
 				<td><input type="text" name="container-id" value="<?php echo get_option('container-id'); ?>" /></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td>ID of the container div whose data needs to be ajaxify. eg: main/page any one.</td>
+				<td>ID or class of the container div whose data needs to be ajaxify. eg: main/page any one.<br><strong>Example:</strong> <span style="font-family:monospace;">#main</span> or <span style="font-family:monospace;">.main</span></td>
 			</tr>
 			<tr>
 				<td><strong>Menu container class:*</strong></td>
@@ -202,7 +202,7 @@ function aws_option_form() {
 			<tr>
 				<td></td>
 				<td>
-					<input class="button" id="option-save" name="option-save" type="submit" value="Save options"/>
+					<input class="button button-primary button-large" id="option-save" name="option-save" type="submit" value="Save options"/>
 				</td>
 			</tr>
 		</table>
@@ -225,6 +225,7 @@ function aws_option_form() {
 	});
 	</script>
 	
+	<br/>
 	<div style="border:1px solid #720921;color:#720921; background-color:#ccc ;padding:10px;">
 		<div style="float:right">
 			<form method="post" action="https://www.paypal.com/cgi-bin/webscr" target="_blank" class="">
@@ -275,7 +276,7 @@ function aws_load_scripts() {
 		if ( trim($id) == '' )
 			unset($ids_arr[$key]);
 		else
-			$ids_arr[$key] =  '#' . trim($id) . ' a';
+			$ids_arr[$key] =  trim($id) . ' a';
 	}
 	$ids = implode(',', $ids_arr);
 	
