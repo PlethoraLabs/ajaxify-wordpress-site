@@ -10,18 +10,13 @@
 
 	// Wait for Document
 	$(function(){
-		// Prepare Variables
 
-		// Application Specific Variables 
-		var rootUrl = aws_data['rootUrl'];
-		// var contentSelector = '#' + aws_data['container_id'],
+		var rootUrl         = aws_data['rootUrl'];
 		var contentSelector = aws_data['container_id'];
-		var $content = $(contentSelector);
-		var contentNode = $content.get(0);
-
-		// Application Generic Variables 
-		var $body = $(document.body);
-		var scrollOptions = {
+		var $content        = $(contentSelector);
+		var contentNode     = $content.get(0);
+		var $body           = $(document.body);
+		var scrollOptions   = {
 				duration : 800,
 				easing   :'swing'
 			};
@@ -46,26 +41,23 @@
 
 		// HTML Helper
 		var documentHtml = function(html){
-			// Prepare
+
 			var result = String(html).replace(/<\!DOCTYPE[^>]*>/i, '')
 			// 						 .replace(/<(html|head|body|title|script)([\s\>])/gi,'<div id="document-$1"$2')
 									 .replace(/<(html|head|body|title)([\s\>])/gi,'<div id="document-$1"$2')
 			// 						 .replace(/<\/(html|head|body|title|script)\>/gi,'</div>');
 									 .replace(/<\/(html|head|body|title)\>/gi,'</div>');
-			// Return
 			return result;
 		};
 
 		// Ajaxify Helper
 		$.fn.ajaxify = function(){
-			// Prepare
-			var $this = $(this);
 
-			// Ajaxify
+			var $this = $(this);
 			$this
 			.find('a:internal:not(.no-ajaxy,[href^="#"], [href*="wp-login"], [href*="wp-admin"])')
 			.on('click', function(event){
-				// Prepare
+
 				var $this	= $(this);
 				var url		= $this.attr('href');
 				var title 	= $this.attr('title') || null;
@@ -74,7 +66,7 @@
 				if ( event.which == 2 || event.metaKey ) return true;
 
 				// Ajaxify this link
-				History.pushState(null,title,url);
+				History.pushState( null, title, url );
 				event.preventDefault();
 				return false;
 			});
@@ -86,14 +78,14 @@
 		$body.ajaxify();
 
 		// Hook into State Changes
-		$(window).bind('statechange',function(){
-			// Prepare Variables
+		$(window).bind('statechange',function(e){
+
 			var State 		= History.getState();
 			var url			= State.url;
 			var relativeUrl = url.replace(rootUrl,'');
 
 			// Set Loading
-			$body.addClass('loading');
+			// $body.addClass('loading');
 			
 			// Start Fade Out
 			// Animating to opacity to 0 still keeps the element's height intact
@@ -102,11 +94,11 @@
 			if ( '' != aws_data['transition'] ) {
 				$content.animate({opacity:0},800);
 			}
-			if( '' != aws_data['loader'] ) {
-				$content
-				.html('<img src="' +rootUrl+ 'wp-content/plugins/ajaxify-wordpress-site/images/' +aws_data['loader']+ '" />')
-				.css('text-align', 'center');
-			}
+			// if( '' != aws_data['loader'] ) {
+			// 	$content
+			// 	.html('<img src="' +rootUrl+ 'wp-content/plugins/ajaxify-wordpress-site/images/' +aws_data['loader']+ '" />')
+			// 	.css('text-align', 'center');
+			// }
 
 			// Ajax Request the Traditional Page
 			$.ajax({
@@ -212,10 +204,10 @@
  
 })(window, jQuery); // end closure
 
-jQuery(document).ready(function($){
+jQuery(function($){
 
 	//Adding no-ajaxy class to a tags present under ids provided
-	$(aws_data['ids']).each(function(){
+	$(aws_data['ids']).each(function(){ 
 		$(this).addClass('no-ajaxy');
 	});
 	

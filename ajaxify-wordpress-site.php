@@ -262,7 +262,7 @@ add_action('wp_enqueue_scripts', 'aws_load_scripts');
  */
 function aws_load_scripts() {
 	
-	//Check whether the core jqury library enqued or not. If not enqued the enque this
+	//Check whether the core jQuery library is enqueued or not. If not enqued the enqueue it
 	if(!wp_script_is( 'jquery' )) {
 		wp_enqueue_script('jquery');
 	}
